@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">CrudSqlite</string>
+    <string name="button_insert">Insert</string>
+    <string name="button_modify">Modify</string>
+    <string name="button_delete">Delete</string>
+    <string name="button_list">List</string>
+    <string name="button_safe">Safe</string>
+</resources>
