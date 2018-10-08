@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     public void delete(View view) {
         if (flagDB == true) {
             Intent intent = new Intent(this, DeleteActivity.class);
+            intent.putExtra(EXTRA_MESSAGE,DATA_BASE_NAME);
             startActivity(intent);
         }
 

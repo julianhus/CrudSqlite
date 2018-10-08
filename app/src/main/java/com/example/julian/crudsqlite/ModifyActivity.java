@@ -26,6 +26,8 @@ public class ModifyActivity extends AppCompatActivity {
     //
     private String nameDb = null;
     private SQLiteDatabase myDB = null;
+    //
+    int posicion = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,16 +54,16 @@ public class ModifyActivity extends AppCompatActivity {
         lv1.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
-                final int posicion = i;
+                posicion = i;
                 //
                 AlertDialog.Builder dialogo1 = new AlertDialog.Builder(ModifyActivity.this);
                 dialogo1.setTitle("Importante");
-                dialogo1.setMessage("¿ Elimina este teléfono ? " + posicion);
+                dialogo1.setMessage("¿ Actualizar el registro " + (posicion + 1) + " ?");
                 dialogo1.setCancelable(false);
                 dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogo1, int id) {
-                        TextView editTextId = findViewById(R.id.editTextId);
-                        TextView editTextName = findViewById(R.id.editTextName);
+                        TextView editTextId = editTextId = findViewById(R.id.editTextId);
+                        TextView editTextName = editTextName = findViewById(R.id.editTextName);
                         finalMyCursor.moveToPosition(i);
                         editTextId.setText("" + finalMyCursor.getInt(0));
                         editTextName.setText("" + finalMyCursor.getString(1));
@@ -76,10 +78,16 @@ public class ModifyActivity extends AppCompatActivity {
                 return false;
             }
         });
-        myCursor.close();
-        finalMyCursor.close();
+        //myCursor.close();
+        //finalMyCursor.close();
     }
 
-    private void modifyBD() {
+    public void modifyBD(View view) {
+        TextView editTextId = editTextId = findViewById(R.id.editTextId);
+        TextView editTextName = editTextName = findViewById(R.id.editTextName);
+        if (myDB.isOpen()) {
+            myDB.execSQL("update crud set id = " + editTextId.getText() + ", name = '" + editTextName.getText() + "' where rowid = " + (posicion + 1));
+        }
+        startActivity(this.getIntent());
     }
 }
